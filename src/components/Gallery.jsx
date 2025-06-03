@@ -72,7 +72,7 @@ function Gallery() {
               <motion.img
                 src={image.src}
                 alt={image.caption}
-                className="w-auto max-h-[40vh] sm:max-h-[50vh] object-contain rounded-lg shadow-neon"
+                className="w-auto max-h-[40vh] sm:max-h-[60vh] object-contain rounded-lg m-2 shadow-neon"
                 whileHover={{ scale: 1.03 }}
                 onError={(e) => {
                   console.error(`Failed to load image: ${image.src}`);
