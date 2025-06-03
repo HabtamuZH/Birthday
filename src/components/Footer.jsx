@@ -6,7 +6,7 @@ function Footer() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="bg-neonPink/50 py-3 sm:py-4 text-center reveal"
+      className="bg-neonPink/50 py-3 sm:py-4 text-center"
     >
       <p className="text-xs sm:text-sm font-neon text-white">
         Crafted with ❤️ by Habtamu for Soliyana’s Epic Birthday | © 2025
