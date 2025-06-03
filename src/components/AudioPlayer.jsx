@@ -15,15 +15,36 @@ function AudioPlayer() {
   ];
 
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true); // Start playing automatically
   const [progress, setProgress] = useState(0);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(0); // Start muted to comply with autoplay
   const audioRef = useRef(new Audio(songs[0].src));
 
+  // Auto-start and fade-in effect
   useEffect(() => {
     audioRef.current.src = songs[currentSongIndex].src;
     audioRef.current.volume = volume;
-    if (isPlaying) audioRef.current.play().catch(() => setIsPlaying(false));
+    const playAudio = async () => {
+      try {
+        await audioRef.current.play();
+        setIsPlaying(true);
+        // Fade in volume over 3 seconds
+        const fadeInterval = setInterval(() => {
+          setVolume((prev) => {
+            const newVolume = Math.min(prev + 0.05, 0.5); // Fade to 0.5
+            audioRef.current.volume = newVolume;
+            if (newVolume >= 0.5) clearInterval(fadeInterval);
+            return newVolume;
+          });
+        }, 150);
+      } catch (error) {
+        console.error("Autoplay failed:", error);
+        setIsPlaying(false);
+        setVolume(0.5); // Reset to default if autoplay fails
+      }
+    };
+    playAudio();
+
     const updateProgress = () => {
       setProgress(
         (audioRef.current.currentTime / audioRef.current.duration) * 100
@@ -34,7 +55,12 @@ function AudioPlayer() {
       audioRef.current.pause();
       audioRef.current.removeEventListener("timeupdate", updateProgress);
     };
-  }, [currentSongIndex, volume]);
+  }, [currentSongIndex]);
+
+  // Handle volume changes
+  useEffect(() => {
+    audioRef.current.volume = volume;
+  }, [volume]);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -65,12 +91,11 @@ function AudioPlayer() {
   const handleVolumeChange = (e) => {
     const newVolume = e.target.value / 100;
     setVolume(newVolume);
-    audioRef.current.volume = newVolume;
   };
 
   return (
     <section className="reveal">
-      <h2 className="text-2xl sm:text-4xl font-birthday text-glowYellow mb-2 sm:mb-3 text-center">
+      <h2 className="text-2xl sm:text-4xl font-birthday text-glowYellow mb-2 sm:mb-3 text-center ">
         Party Playlist
       </h2>
       <motion.div

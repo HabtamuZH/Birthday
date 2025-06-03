@@ -42,55 +42,55 @@ function Message() {
 
   const handleHeartClick = () => {
     confetti({
-      particleCount: 50,
+      particleCount: 40,
       spread: 50,
       origin: { y: 0.4 },
-      colors: ["#333", "#00f0ff", "#f4e4bc"],
+      colors: ["#ff2d55", "#00f0ff", "#f4e285"],
     });
   };
 
   const emojiVariants = {
     bounce: (i) => ({
-      y: [0, -8, 0],
-      rotate: [0, i % 2 === 0 ? 10 : -10, 0],
+      y: [0, -6, 0],
+      rotate: [0, i % 2 === 0 ? 8 : -8, 0],
       transition: {
-        y: { repeat: Infinity, duration: 1.2, delay: i * 0.2 },
-        rotate: { repeat: Infinity, duration: 1.2, delay: i * 0.2 },
+        y: { repeat: Infinity, duration: 1, delay: i * 0.15 },
+        rotate: { repeat: Infinity, duration: 1, delay: i * 0.15 },
       },
     }),
   };
 
   return (
-    <section className="reveal">
+    <section className="reveal w-full">
       <motion.h2
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="text-2xl sm:text-4xl font-birthday text-transparent bg-clip-text bg-gradient-to-r from-neonPink to-neonBlue mb-2 sm:mb-3 text-center"
+        transition={{ duration: 0.5 }}
+        className="text-lg sm:text-4xl font-birthday text-transparent bg-clip-text bg-gradient-to-r from-neonPink to-neonBlue mb-1 sm:mb-2 text-center"
       >
         A Special Note
       </motion.h2>
       <Tilt
-        className="tilt-card p-3 sm:p-4"
-        options={{ max: 20, speed: 400, glare: true, "glare-prerender": true }}
+        className="tilt-card p-2 sm:p-3"
+        options={{ max: 15, speed: 400, glare: true, "glare-prerender": true }}
       >
         <motion.div
-          whileHover={{ scale: 1.03, boxShadow: "0 0 15px #00f0ff" }}
+          whileHover={{ scale: 1.02, boxShadow: "0 0 10px #00f0ff" }}
           className="text-center"
         >
-          <p className="text-xs sm:text-sm font-sans text-glowYellow bg-black/40 px-2 sm:px-3 py-1 sm:py-2 rounded-lg break-words">
+          <p className="text-[11px] sm:text-sm font-sans text-glowYellow bg-black/50 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md break-words">
             {displayedText}
             <span className="animate-pulse">|</span>
           </p>
-          <p className="mt-1 sm:mt-2 text-neonBlue font-neon text-[10px] sm:text-xs">
+          <p className="mt-1 sm:mt-1.5 text-neonBlue font-neon text-[12px] sm:text-[16px]">
             {timeLeft}
           </p>
-          <div className="mt-2 sm:mt-3 flex justify-center gap-2 sm:gap-3">
+          <div className="mt-1.5 sm:mt-2 flex justify-center gap-1.5 sm:gap-2">
             <motion.span
               custom={0}
               variants={emojiVariants}
               animate="bounce"
-              className="text-lg sm:text-xl"
+              className="text-base sm:text-lg"
             >
               🎉
             </motion.span>
@@ -98,7 +98,7 @@ function Message() {
               custom={1}
               variants={emojiVariants}
               animate="bounce"
-              className="text-lg sm:text-xl"
+              className="text-base sm:text-lg"
             >
               🎂
             </motion.span>
@@ -106,19 +106,21 @@ function Message() {
               custom={2}
               variants={emojiVariants}
               animate="bounce"
-              className="text-lg sm:text-xl"
+              className="text-base sm:text-lg"
             >
               🎈
             </motion.span>
           </div>
           <motion.button
-            whileHover={{ scale: 1.1, rotate: 8 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1, rotate: 6 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleHeartClick}
-            className="mt-2 sm:mt-3 btn-neon text-xs sm:text-sm flex items-center gap-1 sm:gap-2 mx-auto px-3 sm:px-4 py-1 sm:py-2"
+            onTouchStart={() => {}}
+            className="mt-1.5 sm:mt-2 btn-neon text-[10px] sm:text-xs flex items-center gap-1 sm:gap-1.5 mx-auto px-2 sm:px-3 py-0.5 sm:py-1 rounded-md"
             aria-label="Send Love"
           >
-            <FaHeart className="text-neonPink text-sm sm:text-base" /> Send Love
+            <FaHeart className="text-neonPink text-[18px] sm:text-xl" /> Send
+            Love
           </motion.button>
         </motion.div>
       </Tilt>
